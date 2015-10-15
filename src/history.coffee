@@ -10,6 +10,7 @@ angular.module('module.tac.history', [])
     visited = []
     last = null
     max_store = 10
+    skip = []
     
     push_visited = (path)->
       visited.push last
@@ -47,7 +48,8 @@ angular.module('module.tac.history', [])
             last = $location.path()
             history.current_mode = history.modes.forward
       
-      initialize: (trackables)->
+      initialize: (_skip)->
+        skip = _skip
         @current_mode = @modes.initial
         $rootScope.$on '$routeChangeSuccess', (event, next)-> history.current_mode.process_route_change()
         

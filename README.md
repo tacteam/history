@@ -1,4 +1,6 @@
-# packaged tac-history
+### TAC Development Guide
+
+# tac-history
 
 This repo is for distribution on `bower`. The source for this module is in the
 [main TacTeam repo](https://github.com/tacteam/history).
@@ -28,7 +30,36 @@ Then add a `<script>` to your `index.html`:
 
 ## Documentation
 
-Documentation is not available yet
+##### Initialize component
+
+```js
+angular.module('main-application')
+.run([
+  'tac.history', 
+  function(history) {
+    history.initialize();
+  }
+])
+```
+
+Additionally you can pass regular expressions as argument on the 'initialize' method to add skippable patterns
+
+
+##### Using
+
+```js
+angular.module('main-application')
+.controller('some.controller', [
+  '$scope',
+  'tac.history', 
+  function($scope, history) {
+    $scope.go_back_button = function(){
+      history.go_back();
+    };
+  }
+])
+```
+
 
 ## License
 

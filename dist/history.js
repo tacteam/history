@@ -2,10 +2,11 @@
   'use strict';
   angular.module('module.tac.history', []).factory('tac.history', [
     '$rootScope', '$location', function($rootScope, $location) {
-      var history, last, max_store, push_visited, redirect, visited;
+      var history, last, max_store, push_visited, redirect, skip, visited;
       visited = [];
       last = null;
       max_store = 10;
+      skip = [];
       push_visited = function(path) {
         visited.push(last);
         if (visited.length > max_store) {
@@ -51,7 +52,8 @@
             }
           }
         },
-        initialize: function(trackables) {
+        initialize: function(_skip) {
+          skip = _skip;
           this.current_mode = this.modes.initial;
           $rootScope.$on('$routeChangeSuccess', function(event, next) {
             return history.current_mode.process_route_change();
